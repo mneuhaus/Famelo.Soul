@@ -1,0 +1,26 @@
+TYPO3:
+  Flow:
+    object:
+      excludeClasses:
+       'gedmo.doctrineextensions': ['.*']
+
+    # security:
+    #   enable: TRUE
+    #   authentication:
+    #     authenticationStrategy: oneToken
+    #     providers:
+    #       DefaultProvider:
+    #         provider: '\Famelo\Soul\Security\SoulAwareUsernamePasswordProvider'
+    #         entryPoint: 'WebRedirect'
+    #         entryPointOptions:
+    #           routeValues:
+    #             '@action': 'index'
+    #             '@controller': 'Standard'
+    #             '@package': 'My.Package'
+
+    persistence:
+      doctrine:
+        eventListeners:
+          -
+            events: ['onFlush']
+            listener: '\Famelo\Soul\Domain\Listener\SoulListener'

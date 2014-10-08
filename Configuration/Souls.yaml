@@ -1,0 +1,4 @@
+'\Famelo\Harvest\Domain\Model\User':
+  emailVerification:
+    className: '\Famelo\Soul\Domain\Model\EmailVerificationPiece'
+    position: start
