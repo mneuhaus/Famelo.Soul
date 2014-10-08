@@ -8,147 +8,77 @@ use TYPO3\Flow\Annotations as Flow;
  * @Flow\Entity
  */
 class Soul {
-
-    const GRANT = 'grant';
-    const ABSTAIN = 'abstain';
-    const DENY = 'deny';
-    const MOOT = 'moot';
-    const BLOCK = 'block';
-
     /**
-     * @var \Famelo\Soul\Domain\Model\AbstractSoulPiece
-     * @ORM\OneToOne(mappedBy="pieces")
-     */
-    protected $rootPiece;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection<\Famelo\Soul\Domain\Model\AbstractSoulPiece>
-     * @ORM\OneToMany(mappedBy="soul")
-     */
-    protected $pieces;
-
-    /**
-     * @var string
-     */
-    protected $vote;
-
-    /**
-     * @var \TYPO3\Party\Domain\Model\AbstractParty
+     * @var \Famelo\Soul\Domain\Model\AbstractFragment
      * @ORM\OneToOne(mappedBy="soul")
      */
-    protected $party;
+    protected $rootFragment;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection<\Famelo\Soul\Domain\Model\AbstractFragment>
+     * @ORM\OneToMany(mappedBy="soul")
+     */
+    protected $fragments;
 
     /**
     * TODO: Document this Method! ( __construct )
     */
     public function __construct() {
-        $this->pieces = new ArrayCollection();
-        $this->vote = self::ABSTAIN;
+        $this->fragments = new ArrayCollection();
     }
 
     /**
-     * Gets party.
+     * Add to the fragments.
      *
-     * @return \TYPO3\Party\Domain\Model\AbstractParty $party
+     * @param \Famelo\Soul\Domain\Model\AbstractFragment $piece
      */
-    public function getParty() {
-        return $this->party;
-    }
-
-    /**
-     * Sets the party.
-     *
-     * @param \TYPO3\Party\Domain\Model\AbstractParty $party
-     */
-    public function setParty($party) {
-        $this->party = $party;
-    }
-
-    /**
-     * Add to the pieces.
-     *
-     * @param \Famelo\Soul\Domain\Model\AbstractSoulPiece $piece
-     */
-    public function addPiece($piece) {
-        $this->pieces->add($piece);
+    public function addFragment($piece) {
+        $this->fragments->add($piece);
     }
 
     /**
      * Remove from pieces.
      *
-     * @param \Famelo\Soul\Domain\Model\AbstractSoulPiece $piece
+     * @param \Famelo\Soul\Domain\Model\AbstractFragment $piece
      */
-    public function removePiece($piece) {
+    public function removeFragment($piece) {
         $this->pieces->remove($piece);
     }
 
     /**
-     * Gets pieces.
+     * Gets fragments.
      *
-     * @return \Doctrine\Common\Collections\Collection<\Famelo\Soul\Domain\Model\AbstractSoulPiece> $pieces
+     * @return \Doctrine\Common\Collections\Collection<\Famelo\Soul\Domain\Model\AbstractFragment> $fragments
      */
-    public function getPieces() {
-        return $this->pieces;
+    public function getFragments() {
+        return $this->fragments;
     }
 
     /**
-     * Sets the pieces.
+     * Sets the fragments.
      *
-     * @param \Doctrine\Common\Collections\Collection<\Famelo\Soul\Domain\Model\AbstractSoulPiece> $pieces
+     * @param \Doctrine\Common\Collections\Collection<\Famelo\Soul\Domain\Model\AbstractFragment> $fragments
      */
-    public function setPieces($pieces) {
-        $this->pieces = $pieces;
+    public function setFragments($fragments) {
+        $this->fragments = $fragments;
     }
 
     /**
-     * Gets rootPiece.
+     * Gets rootFragment.
      *
-     * @return \Famelo\Soul\Domain\Model\AbstractSoulPiece $rootPiece
+     * @return \Famelo\Soul\Domain\Model\AbstractFragment $rootFragment
      */
-    public function getRootPiece() {
-        return $this->rootPiece;
+    public function getRootFragment() {
+        return $this->rootFragment;
     }
 
     /**
-     * Sets the rootPiece.
+     * Sets the rootFragment.
      *
-     * @param \Famelo\Soul\Domain\Model\AbstractSoulPiece $rootPiece
+     * @param \Famelo\Soul\Domain\Model\AbstractFragment $rootFragment
      */
-    public function setRootPiece($rootPiece) {
-        $this->rootPiece = $rootPiece;
-    }
-
-    /**
-     * Gets vote.
-     *
-     * @return string $vote
-     */
-    public function getVote() {
-        return $this->vote;
-    }
-
-    /**
-     * Sets the vote.
-     *
-     * @param string $vote
-     */
-    public function setVote($vote) {
-        $this->vote = $vote;
-    }
-
-    public function seekVotes($request) {
-        $votes = $this->rootPiece->seekVotes($request);
-        if (in_array(self::DENY, $votes)) {
-            $this->vote = self::DENY;
-        } else if (in_array(self::BLOCK, $votes)) {
-            $this->vote = self::BLOCK;
-        } else if (in_array(self::GRANT, $votes)) {
-            $this->vote = self::GRANT;
-        } else if (in_array(self::MOOT, $votes)) {
-            $this->vote = self::MOOT;
-        } else if (in_array(self::ABSTAIN, $votes)) {
-            $this->vote = self::ABSTAIN;
-        }
+    public function setRootFragment($rootFragment) {
+        $this->rootFragment = $rootFragment;
     }
 
 }

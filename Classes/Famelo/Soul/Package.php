@@ -31,10 +31,5 @@ class Package extends BasePackage {
 		$dispatcher->connect('TYPO3\Flow\Configuration\ConfigurationManager', 'configurationManagerReady', function(ConfigurationManager $configurationManager) {
 			$configurationManager->registerConfigurationType('Souls', ConfigurationManager::CONFIGURATION_PROCESSING_TYPE_DEFAULT);
 		});
-
-		$dispatcher->connect(
-			'TYPO3\Flow\Mvc\ActionRequest', 'requestDispatched',
-			'Famelo\Soul\Service\SoulService', 'injectCurrentRequest'
-		);
 	}
 }

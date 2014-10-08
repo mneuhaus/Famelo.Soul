@@ -13,17 +13,11 @@ use TYPO3\Flow\Utility\Algorithms;
  */
 abstract class AbstractSoulPiece {
 
-    const GRANT = 'grant';
-    const ABSTAIN = 'abstain';
-    const DENY = 'deny';
-    const MOOT = 'moot';
-    const BLOCK = 'block';
-
-    /**
-     * @Flow\Transient
-     * @var string
-     */
-    protected $reminderInterval = '7 days';
+    // const GRANT = 'grant';
+    // const ABSTAIN = 'abstain';
+    // const DENY = 'deny';
+    // const MOOT = 'moot';
+    // const BLOCK = 'block';
 
     /**
      * @var \Doctrine\Common\Collections\Collection<\Famelo\Soul\Domain\Model\AbstractSoulPiece>
@@ -31,11 +25,6 @@ abstract class AbstractSoulPiece {
      * @ORM\JoinTable(inverseJoinColumns={@ORM\JoinColumn(name="child_inverse_id")})
      */
     protected $children;
-
-    /**
-     * @var string
-     */
-    protected $vote;
 
     /**
      * @var \Famelo\Soul\Domain\Model\Soul
@@ -49,17 +38,10 @@ abstract class AbstractSoulPiece {
     protected $token;
 
     /**
-     * @var string
-     * @ORM\Column(nullable=true)
-     */
-    protected $status;
-
-    /**
      * TODO: Document this Method! ( __construct )
      */
     public function __construct() {
         $this->children = new ArrayCollection();
-        $this->vote = self::ABSTAIN;
         $this->token = str_replace('-', '', Algorithms::generateUuid());
     }
 
@@ -107,13 +89,6 @@ abstract class AbstractSoulPiece {
     }
 
     /**
-     * TODO: Document this Method! ( removeReminder )
-     */
-    public function removeReminder() {
-        $this->nextReminder = NULL;
-    }
-
-    /**
      * Gets soul.
      *
      * @return \Famelo\Soul\Domain\Model\Soul $soul
@@ -132,24 +107,6 @@ abstract class AbstractSoulPiece {
     }
 
     /**
-     * Gets status.
-     *
-     * @return string $status
-     */
-    public function getStatus() {
-        return $this->status;
-    }
-
-    /**
-     * Sets the status.
-     *
-     * @param string $status
-     */
-    public function setStatus($status) {
-        $this->status = $status;
-    }
-
-    /**
      * Gets token.
      *
      * @return string $token
@@ -165,74 +122,6 @@ abstract class AbstractSoulPiece {
      */
     public function setToken($token) {
         $this->token = $token;
-    }
-
-    /**
-     * TODO: Document this Method! ( getUser )
-     */
-    public function getUser() {
-        return $this->getChain()->getUser();
-    }
-
-    /**
-     * TODO: Document this Method! ( getVoteClass )
-     */
-    public function getVoteClass() {
-        $classes = array(
-            'grant' => 'success',
-        	'abstain' => 'info',
-        	'deny' => 'danger'
-        );
-        return $classes[$this->vote];
-    }
-
-    /**
-     * Gets vote.
-     *
-     * @return string $vote
-     */
-    public function getVote() {
-        return $this->vote;
-    }
-
-    /**
-     * Sets the vote.
-     *
-     * @param string $vote
-     */
-    public function setVote($vote) {
-        $this->vote = $vote;
-    }
-
-    // /**
-    //  * TODO: Document this Method! ( addReminder )
-    //  */
-    // public function addReminder() {
-    //     if ($this->nextReminder === NULL) {
-    //         $this->nextReminder = new \DateTime();
-    //         $this->nextReminder->modify($this->getChain()->getUser()->getBranch()->getGracePeriod());
-    //     } else {
-    //         $nextReminder = clone $this->nextReminder->modify($this->reminderInterval);
-    //         $this->nextReminder = $nextReminder;
-    //     }
-    // }
-
-    /**
-     * TODO: Document this Method! ( isComplete )
-     */
-    public function seekVotes($request, $votes = array()) {
-        if ($this->vote === self::ABSTAIN) {
-            $this->indexAction($request);
-        }
-        $votes[] = $this->vote;
-
-        if ($this->vote !== self::BLOCK) {
-            foreach ($this->children as $child) {
-                $child->seekVotes($request, $votes);
-            }
-        }
-
-        return $votes;
     }
 
 }
