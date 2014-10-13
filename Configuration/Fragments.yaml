@@ -1,0 +1,7 @@
+'InvitationRequest':
+  controller: '\Famelo\Soul\Controller\InvitationRequestController'
+  action: 'index'
+
+'EmailVerification':
+  controller: '\Famelo\Soul\Controller\EmailVerificationController'
+  action: 'index'

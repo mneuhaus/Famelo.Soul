@@ -1,0 +1,53 @@
+<?php
+namespace Famelo\Soul\Routing;
+
+use TYPO3\Flow\Annotations as Flow;
+use TYPO3\Flow\Persistence\PersistenceManagerInterface;
+
+class SoulRoutePartHandler extends \TYPO3\Flow\Mvc\Routing\DynamicRoutePart {
+    /**
+     * @Flow\Inject
+     * @var \TYPO3\Flow\I18n\Service
+     */
+    protected $localizationService;
+
+    /**
+     * @Flow\Inject
+     * @var PersistenceManagerInterface
+     */
+    protected $persistenceManager;
+
+    /**
+     * Checks whether the current URI section matches the configured RegEx pattern.
+     *
+     * @param string $requestPath value to match, the string to be checked
+     * @return boolean TRUE if value could be matched successfully, otherwise FALSE.
+     */
+    protected function matchValue($requestPath) {
+        $language = $this->languageRepository->findOneBySlug($requestPath);
+        if (!$language instanceof Language) {
+            return FALSE;
+        }
+        $this->value = $this->persistenceManager->getIdentifierByObject($language);
+        return TRUE;
+    }
+
+    /**
+     * Checks whether the route part matches the configured RegEx pattern.
+     *
+     * @param string $value The route part (must be a string)
+     * @return boolean TRUE if value could be resolved successfully, otherwise FALSE.
+     */
+    protected function resolveValue($value) {
+        if (is_string($value)) {
+            $value = $this->persistenceManager->getObjectByIdentifier($value, 'CE\Devis\Domain\Model\Language');
+        }
+        if (!$value instanceof Language) {
+            return FALSE;
+        }
+
+        $this->value = $value->getSlug();
+        return TRUE;
+    }
+
+}

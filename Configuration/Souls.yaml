@@ -1,4 +1,110 @@
-'\Famelo\Harvest\Domain\Model\User':
-  emailVerification:
-    className: '\Famelo\Soul\Domain\Model\EmailVerificationPiece'
-    position: start
+'InviteRequest':
+  soul: '\Famelo\Saas\Domain\Model\InviteRequest'
+  fragments:
+    # InvitationRequest:
+    #   EmailVerification:
+    #     condition: 'on(success)'
+    InvitationRequest:
+      EmailVerification: 'true'
+
+    EmailVerification: []
+
+# 'Checkout':
+#   soul: '\Famelo\Soul\Domain\Model\ShopSoul'
+#   fragments:
+#     - LoginOrRegister | Login | Register | OAuth | SSO | InviteRegistration
+#     - EmailVerification
+
+#     HelloSoulInterface:
+#       helloWorld: false
+#       helloFuckingWorld: false
+
+#     EmailVerificationInterface:
+#       - isVerified
+#       - setVerified
+#       - getEmail
+
+#     PartySoulInterface:
+#       - setParty
+#       - getParty
+
+    # helloWorldForm:
+    #   approveRequest: '(soul.helloWorld == true && soul.helloFuckingWorld = true) && user.hasRole("admin")' # soul.helloWorld = true
+
+    # helloFuckingWorldForm:
+    #   approveRequest: 'soul.helloWorld == true && soul.helloFuckingWorld = true' # soul.helloFuckingWorld = true
+
+    # approveRequest:
+    #   approved: 'true'
+
+    # approved:
+    #   stopView: 'soul.approved == false'
+    #   sendRequest: 'soul.approved == true'
+
+    # sendRequest: []
+
+    # stopView: []
+
+# Soul:
+#   token: string
+#   fragments: array<AbstractFragment>
+#   activeFragment: AbstractFragment
+
+# UserSoul:
+#   party: AbstractParty
+#   votes: array<Vote>
+
+# CartSoul:
+#   party: AbstractParty
+#   articles: Articles
+
+# 'User requests an invite for the system'
+#   'InvitationRequestController:index':
+#     # Shows a form to with an input for an E-Mail address
+#   'InvitationRequestController:request':
+#     # Receives the E-Mail from the index form and stores
+#     # it in the UserSoul.party.primaryElectronicAddress.identifier
+#   'EmailVerificationController:index':
+#     # Sends an E-Mail to the user with the verification
+#     # link pointing to the verify action of the EMailVerificationProvider
+#     # and shows a page telling the user that he should have received an e-mail with the verification link
+#   'EmailVerificationController:verify':
+#     # is invoked by the verificationlink and sets UserSoul.party.primaryElectronicAddress.approved to true
+#     # and shows a page telling the user that he has successfully verified his e-mail
+
+# 'Users wants to register for the system'
+#   'InvitationController:invite':
+#     # Sends an invitation to the user through e-mail with an invitation link
+#     # containing an invitation token
+#   'InvitationController:verify':
+#     # Receives an invitation and verifies it. allows to proceed if the token is
+#     # verified, otherwise gives an error to the user and prevents registration
+#   'RegistrationController:index':
+#     # shows a form with the user properties
+#   'RegistrationController:register':
+#     # receives the input from the index action an created a user based on that
+#   'EmailVerificationController:index':
+#     # Sends an E-Mail to the user with the verification
+#     # link pointing to the verify action of the EMailVerificationProvider
+#     # and shows a page telling the user that he should have received an e-mail with the verification link
+#   'EmailVerificationController:verify':
+#     # is invoked by the verificationlink and sets UserSoul.party.primaryElectronicAddress.approved to true
+#     # and shows a page telling the user that he has successfully verified his e-mail
+#   'PartyReviewController:index':
+#     # sends an e-mail to a specified address to verify if the user should be granted access or not
+#     # and tells the user that he will be approved as soon as possible
+#   'SubscriptionSelectionController:index':
+#     # shows available subscriptions for the party to choose from
+#   'SubscriptionSelectionController:select':
+#     # receives the selected subscription and stores it in fragment[subscription].subscription
+#     # and adds it's cost to fragment[balance].transation
+#   'PaymentController:index':
+#     # checks if the selected subscription requires the transaction of money
+#     # and displays available payment options if it does
+#     'PaymentController:select':
+#       # receives the requested payment option and executes the payment
+#       # and sends an e-mail to the accountant if the payment has to be verified manually
+#       'PaymentController:verify':
+#         # receives the manual confirmation/denial of the payment form the accountant
+#   'ThankYouController:index':
+#     # shows a configured thank you message to the user with the information that he is now registered
