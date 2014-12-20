@@ -38,7 +38,7 @@ class SoulController extends AbstractSoulController {
 		$soulDefinition = $souls['InviteRequest'];
 
         $previousFragments = array();
-        foreach ($soulDefinition['fragments'] as $fragmentNames) {
+        foreach ($soulDefinition['actions'] as $fragmentNames) {
         	if (!is_array($fragmentNames)) {
         		$fragmentNames = array($fragmentNames);
         	}

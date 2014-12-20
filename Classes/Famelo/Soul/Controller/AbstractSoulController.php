@@ -57,7 +57,7 @@ abstract class AbstractSoulController extends \TYPO3\Flow\Mvc\Controller\ActionC
 			$request->setArgument('__soulToken', $this->soul->getToken());
 		}
 
-		$fragmentDefinitions = $this->configurationManager->getConfiguration('Fragments');
+		// $fragmentDefinitions = $this->configurationManager->getConfiguration('Fragments');
 		// $this->fragmentDefinition = $fragmentDefinitions[$this->getFragmentIdentifier()];
 
 		parent::processRequest($request, $response);
@@ -92,7 +92,7 @@ abstract class AbstractSoulController extends \TYPO3\Flow\Mvc\Controller\ActionC
 		$souls = $this->configurationManager->getConfiguration('Souls');
 		$fragmentDefinitions = $this->configurationManager->getConfiguration('Fragments');
 		$soulDefinition = $souls[$this->soul->getIdentifier()];
-		$fragmentTransitions = $soulDefinition['fragments'][$this->getFragmentIdentifier()];
+		$fragmentTransitions = $soulDefinition['actions'][$this->getFragmentIdentifier()];
 		foreach ($fragmentTransitions as $fragmentName => $condition) {
 			$fragmentDefinition = $fragmentDefinitions[$fragmentName];
 			# todo: implement condition

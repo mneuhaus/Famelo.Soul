@@ -1,14 +1,14 @@
 'InviteRequest':
-  soul: '\Famelo\Saas\Domain\Model\InviteRequest'
-  fragments:
+  soul: '\Famelo\Soul\Domain\Model\Soul'
+  actions:
     InvitationRequest:
       EmailVerification: 'true'
 
     EmailVerification: []
 
 'request-invite':
-  soul: '\Famelo\Saas\Domain\Model\InviteRequest'
-  fragments:
+  soul: '\Famelo\Soul\Domain\Model\Soul'
+  actions:
 
     InviteRequest:
       controller: '\Famelo\Soul\Controller\InvitationRequestController'
@@ -21,8 +21,11 @@
       action: 'index'
 
 'login-registration':
-  soul: '\Famelo\Saas\Domain\Model\InviteRequest'
+  soul: '\Famelo\Soul\Domain\Model\Soul'
   fragments:
+    '\Famelo\Saas\Domain\Model\InvitationFragment': []
+
+  actions:
 
     OAuthLogin:
       controller: '\Famelo\Oauth\Controller\OAuthAuthenticationController'
@@ -31,7 +34,7 @@
         PlanSelection: 'soul.plan == null'
 
     PlanSelection:
-      controller: '\Famelo\Saas\Controller\PlanController'
+      controller: '\Famelo\Soul\Controller\PlanController'
       action: 'index'
       transitions:
         Payment: 'soul.balance < 0'

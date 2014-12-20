@@ -17,6 +17,11 @@ use TYPO3\Flow\Configuration\ConfigurationManager;
  */
 trait SoulControllerTrait {
 	/**
+	 * @var string
+	 */
+	protected $soulControllerTrait = TRUE;
+
+	/**
 	 * @Flow\Inject
 	 * @var \TYPO3\Flow\Configuration\ConfigurationManager
 	 */
@@ -57,7 +62,7 @@ trait SoulControllerTrait {
 			$request->setArgument('__soulToken', $this->soul->getToken());
 		}
 
-		$fragmentDefinitions = $this->configurationManager->getConfiguration('Fragments');
+		// $fragmentDefinitions = $this->configurationManager->getConfiguration('Fragments');
 		// $this->fragmentDefinition = $fragmentDefinitions[$this->getFragmentIdentifier()];
 
 		parent::processRequest($request, $response);
@@ -92,7 +97,10 @@ trait SoulControllerTrait {
 		$souls = $this->configurationManager->getConfiguration('Souls');
 		$fragmentDefinitions = $this->configurationManager->getConfiguration('Fragments');
 		$soulDefinition = $souls[$this->soul->getIdentifier()];
-		$fragmentTransitions = $soulDefinition['fragments'][$this->getFragmentIdentifier()];
+		$fragmentTransitions = $soulDefinition['actions'][$this->getFragmentIdentifier()];
+
+		var_dump($fragmentDefinitions, $fragmentTransitions);
+		exit();
 		foreach ($fragmentTransitions as $fragmentName => $condition) {
 			$fragmentDefinition = $fragmentDefinitions[$fragmentName];
 			# todo: implement condition

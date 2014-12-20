@@ -69,7 +69,7 @@ class SoulTokenArgumentAttachmentAspect {
 
         $controllerObjectName = $this->objectManager->getCaseSensitiveObjectName($possibleObjectName);
 
-        return $this->reflectionService->isClassImplementationOf($controllerObjectName, 'Famelo\Soul\Core\FragmentInterface');
+        return $this->reflectionService->isClassImplementationOf($controllerObjectName, 'Famelo\Soul\Core\FragmentInterface') || property_exists($controllerObjectName, 'soulControllerTrait');
     }
 
 }

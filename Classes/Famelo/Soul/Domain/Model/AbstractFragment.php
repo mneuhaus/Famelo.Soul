@@ -8,7 +8,7 @@ use TYPO3\Flow\Utility\Algorithms;
 
 /**
  * @Flow\Entity
- * @ORM\InheritanceType("JOINED")
+ * @ORM\InheritanceType("SINGLE_TABLE")
  */
 class AbstractFragment {
     /**
