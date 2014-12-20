@@ -1,13 +1,45 @@
 'InviteRequest':
   soul: '\Famelo\Saas\Domain\Model\InviteRequest'
   fragments:
-    # InvitationRequest:
-    #   EmailVerification:
-    #     condition: 'on(success)'
     InvitationRequest:
       EmailVerification: 'true'
 
     EmailVerification: []
+
+'request-invite':
+  soul: '\Famelo\Saas\Domain\Model\InviteRequest'
+  fragments:
+
+    InviteRequest:
+      controller: '\Famelo\Soul\Controller\InvitationRequestController'
+      action: 'index'
+      transitions:
+        EmailVerification: 'true'
+
+    EmailVerification:
+      controller: '\Famelo\Soul\Controller\EmailVerificationController'
+      action: 'index'
+
+'login-registration':
+  soul: '\Famelo\Saas\Domain\Model\InviteRequest'
+  fragments:
+
+    OAuthLogin:
+      controller: '\Famelo\Oauth\Controller\OAuthAuthenticationController'
+      action: 'requestAuthorization'
+      transitions:
+        PlanSelection: 'soul.plan == null'
+
+    PlanSelection:
+      controller: '\Famelo\Saas\Controller\PlanController'
+      action: 'index'
+      transitions:
+        Payment: 'soul.balance < 0'
+
+    Payment:
+      controller: '\Famelo\Saas\Controller\PaymentController'
+      action: 'index'
+
 
 # 'Checkout':
 #   soul: '\Famelo\Soul\Domain\Model\ShopSoul'

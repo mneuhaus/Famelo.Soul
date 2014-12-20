@@ -1,7 +1,7 @@
 -
   name: 'Soul routing'
-  uriPattern: '{__soulFragment}/login'
-  routeParts:
-    '__soul':
-      handler:   'Famelo\Soul\Routing\SoulRoutePartHandler'
+  uriPattern: '{__soul}/{__soulFragment}/{@action}'
+  # routeParts:
+  #   '__soul':
+  #     handler:   'Famelo\Soul\Routing\SoulRoutePartHandler'
   appendExceedingArguments: true

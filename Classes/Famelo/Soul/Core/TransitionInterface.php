@@ -3,5 +3,5 @@ namespace Famelo\Soul\Core;
 
 /**
  */
-interface TransformationInterface {
+interface TransitionInterface {
 }

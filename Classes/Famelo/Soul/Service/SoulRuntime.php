@@ -34,6 +34,7 @@ class SoulRuntime {
 	}
 
 	public function dispatch($soul) {
+		var_dump('dispatch');
 		var_dump($soul->getRootFragment());
 		exit();
 	}

@@ -18,10 +18,10 @@ TYPO3:
     #             '@controller': 'Standard'
     #             '@package': 'My.Package'
 
-    http:
-      chain:
-        'process':
-          chain:
-            'soulRouting':
-              position: 'after routing'
-              component: 'Famelo\Soul\Core\SoulRoutingComponent'
+    # http:
+    #   chain:
+    #     'process':
+    #       chain:
+    #         'soulRouting':
+    #           position: 'after routing'
+    #           component: 'Famelo\Soul\Core\SoulRoutingComponent'

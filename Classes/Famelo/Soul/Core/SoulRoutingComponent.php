@@ -53,14 +53,14 @@ class SoulRoutingComponent implements ComponentInterface {
 	 */
 	public function handle(ComponentContext $componentContext) {
 		$matchResults = $componentContext->getParameter('TYPO3\Flow\Mvc\Routing\RoutingComponent', 'matchResults');
-		var_dump($matchResults);
+		// var_dump($matchResults);
 
 		$fragment = 'InvitationRequest';
 		for ($i=0; $i < 10; $i++) {
 			$soulToken = str_replace('-', '', Algorithms::generateUuid());
 			$soulHash = substr($soulToken, 6, 6);
 			$fragmentHash = substr(sha1($fragment . $soulHash . 'secret'), 6, 6);
-			var_dump($soulToken, $soulHash . '-' . $fragmentHash);
+			// var_dump($soulToken, $soulHash . '-' . $fragmentHash);
 		}
 	}
 

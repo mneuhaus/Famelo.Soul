@@ -15,10 +15,10 @@ use TYPO3\Flow\Configuration\ConfigurationManager;
 /**
  * Standard controller for the Brain package
  */
-abstract class AbstractSoulController extends \TYPO3\Flow\Mvc\Controller\ActionController implements FragmentInterface{
+trait SoulControllerTrait {
 	/**
 	 * @Flow\Inject
-	 * @var ConfigurationManager
+	 * @var \TYPO3\Flow\Configuration\ConfigurationManager
 	 */
 	protected $configurationManager;
 
@@ -29,7 +29,7 @@ abstract class AbstractSoulController extends \TYPO3\Flow\Mvc\Controller\ActionC
 
 	/**
 	 * @Flow\inject
-	 * @var SoulRepository
+	 * @var \Famelo\Soul\Domain\Repository\SoulRepository
 	 */
 	protected $soulRepository;
 
@@ -74,7 +74,7 @@ abstract class AbstractSoulController extends \TYPO3\Flow\Mvc\Controller\ActionC
 		if (isset($soulDefinition['soul'])) {
 			$soul = new $soulDefinition['soul']();
 		} else {
-			$soul = new Soul();
+			$soul = new \Famelo\Soul\Domain\Model\Soul();
 		}
 		$soul->setIdentifier($soulName);
 		return $soul;
